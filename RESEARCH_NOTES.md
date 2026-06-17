@@ -162,6 +162,32 @@ we do not have.
 > Note: FOMC dates in `event_calendar.py` are a best-effort public schedule —
 > verify against federalreserve.gov before any precise event study.
 
+## Phase 3 (A1) — event vol-timing straddle (`event_straddle.py`)
+
+Events enlarge moves (A1), so: are events the pocket where being LONG vol pays,
+despite the unconditional variance premium favouring sellers? Long-straddle
+payoff proxy (realized move − GVZ-implied breakeven − 10bps), per day type:
+
+| Day type | mean payoff | win% | Sharpe(ann) |
+|----------|-------------|------|-------------|
+| Event days | **−44.6 bps** | 19% | −10.5 |
+| NFP days | −33.3 bps | 26% | −7.4 |
+| FOMC days | −61.6 bps | 9% | −17.1 |
+| Non-event days | −42.4 bps | 20% | −9.6 |
+
+Event vs non-event difference: −2.2 bps, **p=0.66 (none)**. Long vol loses
+everywhere, and events do **not** flip it — implied vol (GVZ) already over-prices
+the event-day move premium (FOMC worst). The proxy even *under*-prices the
+event-day straddle (uses average implied, not event-elevated implied), so the
+real result is at least this negative → the null is robust.
+
+**A-track conclusion (with available data):** scheduled-event timing yields no
+directional edge (A1) and no long-vol edge (straddle). The only edge anywhere in
+the project remains the unconditional short-vol variance premium — generic risk
+premium with crash risk, not a forecast engine. A *directional* event edge, if it
+exists, requires surprise (actual−consensus) data ("A2"), which needs an external
+economic-calendar feed not currently available.
+
 ## How to run
 
 ```bash
