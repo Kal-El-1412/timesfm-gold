@@ -128,6 +128,40 @@ direction, and not in volatility once measured against the market's implied vol.
 The market is an efficient forecaster of gold volatility. What remains (short-vol
 premium) is generic beta, not a "forecast engine", and carries crash risk.
 
+## Phase 3 (A1) — event windows (`event_calendar.py`, `event_analysis.py`)
+
+No consensus/surprise feed available, so we test the cheaper proxy: do gold's
+moves concentrate around scheduled releases (NFP = first Friday; FOMC =
+hard-coded public schedule, ±1 trading day windows)?
+
+**Q1 — move size (this is the usable result):**
+
+| Event | event-day move | non-event | ratio | p |
+|-------|---------------|-----------|-------|---|
+| NFP | 0.82% | 0.71% | **1.16x** | 0.008 |
+| FOMC | 0.80% | 0.71% | 1.12x | 0.14 (ns) |
+| Any event | 0.82% | 0.69% | **1.18x** | 0.001 |
+
+Events reliably enlarge gold moves (~18%, p=0.001) → **volatility/straddle timing
+around events is informative**, even though direction is not.
+
+**Q2/Q3 — direction predictability by window (purged walk-forward):**
+
+| Bucket | accuracy | +event features |
+|--------|----------|-----------------|
+| All days | 0.509 | 0.497 |
+| Event-window days | 0.524 (n=471, ns) | 0.507 |
+| Non-event days | 0.504 | 0.494 |
+
+Direction stays ~50% inside event windows; the 52.4% is within noise and adding
+event flags *hurts*. **Scheduled-event timing does not make direction
+predictable.** The only remaining path to a directional edge is event *surprise*
+magnitude (actual−consensus, "A2"), which needs an economic-calendar data feed
+we do not have.
+
+> Note: FOMC dates in `event_calendar.py` are a best-effort public schedule —
+> verify against federalreserve.gov before any precise event study.
+
 ## How to run
 
 ```bash
