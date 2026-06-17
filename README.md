@@ -2,10 +2,14 @@
 
 A research framework for testing whether modern AI / ML techniques can forecast
 gold prices — built around **falsification and measurable criteria**, not
-convincing charts. The honest Phase-1 result is that 24-hour gold *direction* is
-not predictable from price or macro data, while short-horizon *volatility* is
-mildly predictable. See [`RESEARCH_NOTES.md`](RESEARCH_NOTES.md) for the full
-methodology and results.
+convincing charts.
+
+> **Status: research concluded.** Across direction, volatility, and event
+> windows, no tradable forecasting edge was found in gold from market-derived
+> data; the market (notably implied vol) already prices the predictable
+> information. See **[`FINDINGS.md`](FINDINGS.md)** for the executive summary and
+> [`RESEARCH_NOTES.md`](RESEARCH_NOTES.md) for full methodology and per-phase
+> results.
 
 ## TL;DR findings (leak-free, purged walk-forward)
 
@@ -58,6 +62,10 @@ python direction_accuracy.py   # TimesFM direction test (downloads ~200M model)
 
 ## Status
 
-Phase 1 is complete and its conclusions are documented. The active research
-thread (Phase 2) is **volatility / large-move prediction**, not direction —
-that is the only target with a statistically significant edge.
+**Concluded (Phases 1–3).** Direction is random across two independent model
+families; volatility is predictable only to the extent the market's implied vol
+(GVZ) already does it; scheduled-event windows enlarge moves but options
+over-price the enlargement. The only positive expectancy is the short-vol
+variance risk premium — a known risk premium, not a forecasting edge. The single
+untested path (directional reaction to economic *surprises*) needs an external
+consensus data feed and was not pursued. Full write-up in [`FINDINGS.md`](FINDINGS.md).
