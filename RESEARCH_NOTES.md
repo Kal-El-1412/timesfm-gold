@@ -93,6 +93,41 @@ Takeaways:
   event-window features (CPI/NFP/FOMC), and an optional GARCH(1,1) baseline
   (`pip install arch`) alongside the EWMA persistence control.
 
+## Phase 2b (decisive) — realized vs implied vol (`vol_vs_implied.py`)
+
+Adding **GVZ (gold implied vol)** lets us test the Phase-2 vol edge against the
+market's own forecast. This is the catch that kills the vol track:
+
+| Forecast of forward realized vol (H=21d) | Purged OOS R² |
+|------------------------------------------|---------------|
+| **Implied (GVZ) only** | **+0.30** |
+| Our past-vol features only | −0.06 |
+| Macro only | −0.15 |
+| Implied + our features (combined) | +0.07 |
+
+- The market's **implied vol is a good forecaster** (R²=0.30). Our features are
+  worse than nothing, and *adding* them to implied **destroys** performance
+  (0.30 → 0.07). The Phase-2 persistence edge (R²=0.14) is entirely **subsumed
+  by implied vol** — it was already priced in, exactly as warned.
+
+Variance risk premium & strategy (cost-aware, non-overlapping):
+
+| | mean | win% | Sharpe(ann) |
+|---|---|---|---|
+| Variance risk premium | implied 16.6 vs realized 14.7 = **+1.9 vol pts**, implied>realized **77%** of the time | | |
+| Always short vol (harvest premium) | +1.27 | 71% | **+0.83** |
+| Model-conditional (our forecast) | +0.66 | 48% | +0.45 |
+
+- The **only** profitable strategy is harvesting the variance risk premium
+  unconditionally — a **known risk premium (short-vol beta with tail risk)**,
+  requiring zero forecasting skill. Using our model to time it makes it **worse**
+  (Sharpe 0.83 → 0.45).
+
+**Conclusion:** there is no forecasting edge in gold from these inputs — not in
+direction, and not in volatility once measured against the market's implied vol.
+The market is an efficient forecaster of gold volatility. What remains (short-vol
+premium) is generic beta, not a "forecast engine", and carries crash risk.
+
 ## How to run
 
 ```bash
