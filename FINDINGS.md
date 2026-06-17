@@ -74,3 +74,20 @@ a reusable quantitative-research framework that:
 The same framework can be pointed at any other asset to answer the same question
 in days, not months. **The negative result is the result** — and it was reached
 without fooling ourselves, which was the entire point.
+
+## Appendix — pivot exploration (`vol_screen.py`)
+
+We briefly screened whether the framework's one positive signal — volatility
+predictability — generalises to assets that lack a liquid implied-vol benchmark
+(crypto, FX crosses, small-caps). Result, as a reusable tool and a finding:
+
+- **Volatility is strongly predictable** on these assets: a one-line RiskMetrics
+  EWMA achieves rank IC **0.31–0.66** vs realised vol (purged walk-forward).
+- **But ML adds no edge** — XGBoost, even with EWMA supplied as a feature, fails
+  to beat the EWMA on every asset tested.
+
+The consistent meta-lesson across the whole project: **simple, freely-available
+benchmarks (implied vol for gold, EWMA for everything else) already capture the
+easy signal; ML adds no tradable alpha on top.** A useful volatility/risk product
+is buildable (EWMA/GARCH, clear rank-IC metric) but it is engineering and
+coverage, not a predictive moat. This closes the research arc.
