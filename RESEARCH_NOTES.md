@@ -73,6 +73,26 @@ foundation model) and the leak-free XGBoost macro model (50.9%, p=0.51) now
 3. The framework now produces honest, error-barred answers and caught a real
    leakage bug on its first run — exactly what a research harness should do.
 
+## Phase 2 (started) — volatility prediction (`volatility.py`)
+
+Pivot from direction to *magnitude*. Forward realized volatility over the next
+H=5 days, evaluated with the same purged walk-forward discipline.
+
+| Model | Pooled OOS R² | Note |
+|-------|---------------|------|
+| **Positive control** — past RV → future RV (linear) | **+0.14**, perm p=0.005 | signal known to exist is recovered → harness is trustworthy |
+| Macro features only → future RV | −0.04 | macro does not predict vol |
+| Vol persistence + macro (XGB) | +0.04 | macro adds overfit noise; worse than persistence alone |
+
+Takeaways:
+- The **positive control passes** — the framework correctly finds volatility
+  clustering, which validates that the Phase-1 null results are real, not an
+  artifact of an over-conservative pipeline.
+- **Volatility is predictable from its own history**; macro factors do not help.
+- Next: realized-vol / large-move *trading* construct (option-style payoffs),
+  event-window features (CPI/NFP/FOMC), and an optional GARCH(1,1) baseline
+  (`pip install arch`) alongside the EWMA persistence control.
+
 ## How to run
 
 ```bash
