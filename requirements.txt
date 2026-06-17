@@ -1,0 +1,21 @@
+# Core data / numerics
+numpy==2.4.6
+pandas==3.0.3
+scipy==1.17.1
+
+# Market data
+yfinance==1.4.1
+
+# Technical indicators
+ta==0.11.0
+
+# Machine learning
+scikit-learn==1.9.0
+xgboost==3.2.0
+
+# TimesFM foundation model (pulls torch)
+timesfm==2.0.1
+torch==2.12.0
+
+# Optional: GARCH positive control in volatility.py (falls back to EWMA if absent)
+# arch==7.2.0
