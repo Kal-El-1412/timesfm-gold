@@ -42,6 +42,7 @@ TICKERS = {
     "nasdaq": "QQQ",
     "us10y": "^TNX",
     "us2y": "^IRX",
+    "gvz": "^GVZ",     # CBOE Gold Volatility Index = market-IMPLIED gold vol
 }
 
 RETURN_LOOKBACKS = [1, 5, 10]
