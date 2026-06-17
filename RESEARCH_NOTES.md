@@ -46,6 +46,23 @@ Trading the direction signal underperforms simply holding gold and has a worse
 drawdown; transaction costs alone erase ~38 points of gross return. **The
 direction signal is not tradable.**
 
+### TimesFM direction test (`direction_accuracy.py`, horizon == eval horizon)
+
+Full foundation-model run, hourly bars, forecast horizon matched to evaluation
+horizon, with binomial 95% CIs:
+
+| Window | 4h | 8h | 24h |
+|--------|----|----|-----|
+| 2y (n≈1108) | 50.5% [47.6, 53.5] | 50.5% [47.5, 53.4] | 51.1% [48.1, 54.0] |
+| 1y (n≈534)  | 52.1% [47.8, 56.3] | 53.9% [49.7, 58.2] | 50.8% [46.5, 55.0] |
+
+Every CI brackets 50%. The 1y/8h point estimate (53.9%) looks directional but
+its CI includes 50 **and** it does not replicate in the 2y window (50.5%) — and
+the sign of the deviation even flips versus the original report (which was below
+50% on all horizons). That is the signature of noise, not edge. TimesFM (200M
+foundation model) and the leak-free XGBoost macro model (50.9%, p=0.51) now
+**independently agree** that 24h gold direction is unpredictable.
+
 ## Interpretation
 
 1. **Direction forecasting from price/macro is dead** — now proven rigorously,
